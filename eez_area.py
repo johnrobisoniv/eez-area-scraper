@@ -4,17 +4,22 @@ import urllib2
 
 
 def get_eez_areas (output_filename):
+
+    # First, use urllib2 to read the html into a BeautifulSoup object
     response = urllib2.urlopen('https://en.wikipedia.org/wiki/Exclusive_economic_zone')
     html = response.read()
     soup = BeautifulSoup(html, 'html.parser')
 
+    # Then, traverse the DOM to find the appropriate table, and read the rows into an array
     table = soup.find(id='Rankings_by_area').find_parent().next_sibling.next_sibling.next_sibling.next_sibling
     rows = table.find_all('tr')
 
 
+    # Set up our outfile to accept data as we iterate through the rows array
     outfile = open(output_filename, 'w')
 
-    #print rows[2]
+    # Iterate through the rows, writing each country, value pair to a new line
+    # in our outfile - csv format
     count = 0
     for row in rows:
         if count != 0:
@@ -27,6 +32,8 @@ def get_eez_areas (output_filename):
                 pass
             #print cells
         count += 1
+
+    # Close the outfile
     outfile.close()
 
 
