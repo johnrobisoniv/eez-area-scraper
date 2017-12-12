@@ -22,7 +22,10 @@ def get_eez_areas (output_filename):
     # in our outfile - csv format
     count = 0
     for row in rows:
-        if count != 0:
+        # Skip the first row
+        if count == 0:
+            outfile.write("country,eez_area\n")
+        else:
             cells = row.find_all('td')
             country = cells[1].a.string
             eez_area = cells[2].string
