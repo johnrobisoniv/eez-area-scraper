@@ -30,7 +30,7 @@ def get_eez_areas (output_filename):
             country = cells[1].a.string
             eez_area = cells[2].string
             try:
-                outfile.write(country + ',' + str(int(eez_area.replace(',',''))) + '\n')
+                outfile.write(country.replace(',','') + ',' + str(int(eez_area.replace(',',''))) + '\n')
             except:
                 pass
             #print cells
